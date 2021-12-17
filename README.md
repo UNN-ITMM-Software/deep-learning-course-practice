@@ -42,6 +42,7 @@
 Контрольный набор параметров
 
 | Hidden neurons| Learning rate | Number of epochs |
+|-|-|-|
 | 300 | 0.1 | 20 |
 
 | ФИО | Time, s |Train accuracy | Test accuracy |
