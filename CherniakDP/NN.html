@@ -4,7 +4,7 @@
 
 <title>NN</title>
 
-<script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=6dE4JUajJjpkAGcqcbkwBzYGP_sPf0ov-kJwiYfp98POaqUXOc171X5p2X__-xrIK2eb5RV3r4ln2xWkcDUGY99MijMY99OvaFDm2MYVjws" charset="UTF-8"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=p79CWavujzRuomXly729wUI9xBZBeaLrihpq6nsCIYryhuH1H_WHA7vfZ57ICipeYupo4jX40UkATOdDIDqxPsOM7RIcyO71FweFmmg74sU" charset="UTF-8"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
@@ -13076,7 +13076,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -13091,7 +13091,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># prepare data</span>
@@ -13114,7 +13114,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">cross_entropy_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -13135,7 +13135,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -13154,12 +13154,13 @@ div#notebook {
         <span class="bp">self</span><span class="o">.</span><span class="n">z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">a2</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z2</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">backpropagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xTrain</span><span class="p">,</span> <span class="n">yTrain</span><span class="p">,</span> <span class="n">learningRate</span><span class="p">):</span>
-        <span class="n">dz2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a2</span> <span class="o">-</span> <span class="n">yTrain</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">backpropagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">learningRate</span><span class="p">):</span>
+        <span class="n">dz2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a2</span> <span class="o">-</span> <span class="n">y_train</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">dw1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dz2</span><span class="p">)</span>
         <span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dz2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
         <span class="n">dz1</span> <span class="o">=</span> <span class="n">dz2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z1</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">dw0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xTrain</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dz1</span><span class="p">)</span>
+        <span class="n">dw0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dz1</span><span class="p">)</span>
         <span class="n">db0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dz1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         
         <span class="c1"># ipdate weights</span>
@@ -13214,7 +13215,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nn</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">([</span><span class="mi">784</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
@@ -13236,31 +13237,31 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch[1]    Time: 18.77 s		cross-entropy-error: 0.224		accuracy: 0.934
-Epoch[2]    Time: 2.82 s		cross-entropy-error: 0.157		accuracy: 0.954
-Epoch[3]    Time: 2.89 s		cross-entropy-error: 0.122		accuracy: 0.965
-Epoch[4]    Time: 2.88 s		cross-entropy-error: 0.100		accuracy: 0.971
-Epoch[5]    Time: 2.63 s		cross-entropy-error: 0.084		accuracy: 0.977
-Epoch[6]    Time: 2.89 s		cross-entropy-error: 0.072		accuracy: 0.980
-Epoch[7]    Time: 2.61 s		cross-entropy-error: 0.062		accuracy: 0.983
-Epoch[8]    Time: 2.60 s		cross-entropy-error: 0.055		accuracy: 0.985
-Epoch[9]    Time: 2.61 s		cross-entropy-error: 0.049		accuracy: 0.987
-Epoch[10]    Time: 2.71 s		cross-entropy-error: 0.044		accuracy: 0.988
-Epoch[11]    Time: 2.64 s		cross-entropy-error: 0.040		accuracy: 0.989
-Epoch[12]    Time: 2.60 s		cross-entropy-error: 0.037		accuracy: 0.991
-Epoch[13]    Time: 2.62 s		cross-entropy-error: 0.034		accuracy: 0.991
-Epoch[14]    Time: 2.61 s		cross-entropy-error: 0.031		accuracy: 0.992
-Epoch[15]    Time: 2.61 s		cross-entropy-error: 0.028		accuracy: 0.993
-Epoch[16]    Time: 2.86 s		cross-entropy-error: 0.026		accuracy: 0.994
-Epoch[17]    Time: 2.59 s		cross-entropy-error: 0.024		accuracy: 0.994
-Epoch[18]    Time: 2.62 s		cross-entropy-error: 0.023		accuracy: 0.995
-Epoch[19]    Time: 2.64 s		cross-entropy-error: 0.021		accuracy: 0.996
-Epoch[20]    Time: 2.63 s		cross-entropy-error: 0.019		accuracy: 0.996
-Train time: 80.77 s
+<pre>Epoch[1]    Time: 2.73 s		cross-entropy-error: 0.227		accuracy: 0.934
+Epoch[2]    Time: 2.67 s		cross-entropy-error: 0.159		accuracy: 0.954
+Epoch[3]    Time: 2.60 s		cross-entropy-error: 0.123		accuracy: 0.965
+Epoch[4]    Time: 2.69 s		cross-entropy-error: 0.100		accuracy: 0.971
+Epoch[5]    Time: 2.66 s		cross-entropy-error: 0.085		accuracy: 0.976
+Epoch[6]    Time: 2.64 s		cross-entropy-error: 0.073		accuracy: 0.979
+Epoch[7]    Time: 2.62 s		cross-entropy-error: 0.064		accuracy: 0.982
+Epoch[8]    Time: 2.67 s		cross-entropy-error: 0.056		accuracy: 0.984
+Epoch[9]    Time: 2.63 s		cross-entropy-error: 0.050		accuracy: 0.986
+Epoch[10]    Time: 2.62 s		cross-entropy-error: 0.045		accuracy: 0.988
+Epoch[11]    Time: 2.69 s		cross-entropy-error: 0.040		accuracy: 0.989
+Epoch[12]    Time: 2.65 s		cross-entropy-error: 0.037		accuracy: 0.991
+Epoch[13]    Time: 2.59 s		cross-entropy-error: 0.034		accuracy: 0.992
+Epoch[14]    Time: 2.67 s		cross-entropy-error: 0.031		accuracy: 0.992
+Epoch[15]    Time: 2.63 s		cross-entropy-error: 0.028		accuracy: 0.993
+Epoch[16]    Time: 2.63 s		cross-entropy-error: 0.026		accuracy: 0.994
+Epoch[17]    Time: 2.63 s		cross-entropy-error: 0.024		accuracy: 0.995
+Epoch[18]    Time: 2.64 s		cross-entropy-error: 0.022		accuracy: 0.995
+Epoch[19]    Time: 2.63 s		cross-entropy-error: 0.021		accuracy: 0.996
+Epoch[20]    Time: 2.72 s		cross-entropy-error: 0.019		accuracy: 0.996
+Train time: 64.33 s
 Train error: 0.019
 Train accuracy: 0.996
 
-Test error: 0.067
+Test error: 0.066
 Test accuracy: 0.980 
 </pre>
 </div>
