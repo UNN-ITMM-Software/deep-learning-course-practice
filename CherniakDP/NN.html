@@ -4,7 +4,7 @@
 
 <title>NN</title>
 
-<script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=QiGOn_ZrbJVUb56xBruYEVgie82VCU2x0oFF69N88dxYGfUFP88vLxJHi1KXnc1EMExyCgawuph6gUpImsw0PRwNe6qQqYYN_HwOeyD3u_g" charset="UTF-8"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=6dE4JUajJjpkAGcqcbkwBzYGP_sPf0ov-kJwiYfp98POaqUXOc171X5p2X__-xrIK2eb5RV3r4ln2xWkcDUGY99MijMY99OvaFDm2MYVjws" charset="UTF-8"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
@@ -13076,7 +13076,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -13091,7 +13091,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># prepare data</span>
@@ -13114,7 +13114,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">cross_entropy_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -13135,47 +13135,40 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_nodes_in_layers</span><span class="p">):</span>
         <span class="c1"># weights</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">[</span><span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">[</span><span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
 
         <span class="c1"># biases</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_nodes_in_layers</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
 
-
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">a1</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a2</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z2</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">softmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z2</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">backward_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">-</span> <span class="n">y_train</span><span class="p">)</span> <span class="o">/</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dz0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dz0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z1</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># derivative of relu</span>
-
-    <span class="k">def</span> <span class="nf">backpropagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
-        <span class="n">dw2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span><span class="p">)</span>
-        <span class="n">db2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-        <span class="n">dw1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dz0</span><span class="p">)</span>
-        <span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dz0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
+    <span class="k">def</span> <span class="nf">backpropagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xTrain</span><span class="p">,</span> <span class="n">yTrain</span><span class="p">,</span> <span class="n">learningRate</span><span class="p">):</span>
+        <span class="n">dz2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a2</span> <span class="o">-</span> <span class="n">yTrain</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dw1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dz2</span><span class="p">)</span>
+        <span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dz2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">dz1</span> <span class="o">=</span> <span class="n">dz2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z1</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">dw0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xTrain</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dz1</span><span class="p">)</span>
+        <span class="n">db0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dz1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
         <span class="c1"># ipdate weights</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dw1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dw2</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">-=</span> <span class="n">learningRate</span> <span class="o">*</span> <span class="n">dw1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">-=</span> <span class="n">learningRate</span> <span class="o">*</span> <span class="n">dw0</span>
+        
         <span class="c1"># update biases</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">db1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">db2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">-=</span> <span class="n">learningRate</span> <span class="o">*</span> <span class="n">db1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">-=</span> <span class="n">learningRate</span> <span class="o">*</span> <span class="n">db0</span>
 
 
     <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
@@ -13188,15 +13181,13 @@ div#notebook {
                 <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">iteration</span><span class="p">:</span><span class="n">iteration</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]</span>
 
                 <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">backward_pass</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">backpropagation</span><span class="p">(</span><span class="n">x_batch</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">backpropagation</span><span class="p">(</span><span class="n">x_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
                 <span class="n">iteration</span> <span class="o">+=</span> <span class="n">batch_size</span>
 
             <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
             <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
-            <span class="n">cross_entropy</span> <span class="o">=</span> <span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
-            <span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">cross_entropy</span> <span class="o">=</span> <span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="p">)</span>
+            <span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
             <span class="nb">print</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s1">&#39;Epoch[</span><span class="si">{</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s1">]    Time: </span><span class="si">{</span><span class="n">time</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> s</span><span class="se">\t\t</span><span class="s1">cross-entropy-error: </span><span class="si">{</span><span class="n">cross_entropy</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\t\t</span><span class="s1">accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -13204,16 +13195,16 @@ div#notebook {
         <span class="n">finish_train</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Train time: </span><span class="si">{</span><span class="p">(</span><span class="n">finish_train</span> <span class="o">-</span> <span class="n">start_train</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s</span><span class="se">\n</span><span class="s2">&quot;</span>
               <span class="sa">f</span><span class="s2">&quot;Train error: </span><span class="si">{</span><span class="n">cross_entropy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-              <span class="sa">f</span><span class="s2">&quot;Train accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+              <span class="sa">f</span><span class="s2">&quot;Train accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-        <span class="n">cross_entropy</span> <span class="o">=</span> <span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
-        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">cross_entropy</span> <span class="o">=</span> <span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="p">)</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
         <span class="nb">print</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test error: </span><span class="si">{</span><span class="n">cross_entropy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Test accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test error: </span><span class="si">{</span><span class="n">cross_entropy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">Test accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13223,7 +13214,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nn</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">([</span><span class="mi">784</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
@@ -13245,32 +13236,32 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch[1]    Time: 4.47 s		cross-entropy-error: 2.011		accuracy: 0.916
-Epoch[2]    Time: 4.55 s		cross-entropy-error: 1.006		accuracy: 0.939
-Epoch[3]    Time: 4.21 s		cross-entropy-error: 0.716		accuracy: 0.947
-Epoch[4]    Time: 4.10 s		cross-entropy-error: 0.514		accuracy: 0.955
-Epoch[5]    Time: 4.15 s		cross-entropy-error: 0.417		accuracy: 0.958
-Epoch[6]    Time: 4.15 s		cross-entropy-error: 0.347		accuracy: 0.962
-Epoch[7]    Time: 4.18 s		cross-entropy-error: 0.304		accuracy: 0.963
-Epoch[8]    Time: 4.40 s		cross-entropy-error: 0.244		accuracy: 0.968
-Epoch[9]    Time: 4.86 s		cross-entropy-error: 0.211		accuracy: 0.970
-Epoch[10]    Time: 4.76 s		cross-entropy-error: 0.183		accuracy: 0.972
-Epoch[11]    Time: 4.58 s		cross-entropy-error: 0.170		accuracy: 0.973
-Epoch[12]    Time: 4.36 s		cross-entropy-error: 0.139		accuracy: 0.976
-Epoch[13]    Time: 4.18 s		cross-entropy-error: 0.134		accuracy: 0.976
-Epoch[14]    Time: 4.27 s		cross-entropy-error: 0.130		accuracy: 0.976
-Epoch[15]    Time: 4.56 s		cross-entropy-error: 0.113		accuracy: 0.977
-Epoch[16]    Time: 4.32 s		cross-entropy-error: 0.099		accuracy: 0.979
-Epoch[17]    Time: 4.21 s		cross-entropy-error: 0.094		accuracy: 0.979
-Epoch[18]    Time: 4.26 s		cross-entropy-error: 0.096		accuracy: 0.978
-Epoch[19]    Time: 4.17 s		cross-entropy-error: 0.079		accuracy: 0.982
-Epoch[20]    Time: 4.29 s		cross-entropy-error: 0.076		accuracy: 0.982
-Train time: 99.86 s
-Train error: 0.076
-Train accuracy: 0.98
+<pre>Epoch[1]    Time: 18.77 s		cross-entropy-error: 0.224		accuracy: 0.934
+Epoch[2]    Time: 2.82 s		cross-entropy-error: 0.157		accuracy: 0.954
+Epoch[3]    Time: 2.89 s		cross-entropy-error: 0.122		accuracy: 0.965
+Epoch[4]    Time: 2.88 s		cross-entropy-error: 0.100		accuracy: 0.971
+Epoch[5]    Time: 2.63 s		cross-entropy-error: 0.084		accuracy: 0.977
+Epoch[6]    Time: 2.89 s		cross-entropy-error: 0.072		accuracy: 0.980
+Epoch[7]    Time: 2.61 s		cross-entropy-error: 0.062		accuracy: 0.983
+Epoch[8]    Time: 2.60 s		cross-entropy-error: 0.055		accuracy: 0.985
+Epoch[9]    Time: 2.61 s		cross-entropy-error: 0.049		accuracy: 0.987
+Epoch[10]    Time: 2.71 s		cross-entropy-error: 0.044		accuracy: 0.988
+Epoch[11]    Time: 2.64 s		cross-entropy-error: 0.040		accuracy: 0.989
+Epoch[12]    Time: 2.60 s		cross-entropy-error: 0.037		accuracy: 0.991
+Epoch[13]    Time: 2.62 s		cross-entropy-error: 0.034		accuracy: 0.991
+Epoch[14]    Time: 2.61 s		cross-entropy-error: 0.031		accuracy: 0.992
+Epoch[15]    Time: 2.61 s		cross-entropy-error: 0.028		accuracy: 0.993
+Epoch[16]    Time: 2.86 s		cross-entropy-error: 0.026		accuracy: 0.994
+Epoch[17]    Time: 2.59 s		cross-entropy-error: 0.024		accuracy: 0.994
+Epoch[18]    Time: 2.62 s		cross-entropy-error: 0.023		accuracy: 0.995
+Epoch[19]    Time: 2.64 s		cross-entropy-error: 0.021		accuracy: 0.996
+Epoch[20]    Time: 2.63 s		cross-entropy-error: 0.019		accuracy: 0.996
+Train time: 80.77 s
+Train error: 0.019
+Train accuracy: 0.996
 
-Test error: 0.605
-Test accuracy: 0.95 
+Test error: 0.067
+Test accuracy: 0.980 
 </pre>
 </div>
 </div>
