@@ -14515,7 +14515,7 @@ a.anchor-link {
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">gzip</span>
@@ -14592,6 +14592,7 @@ a.anchor-link {
 
         <span class="n">out_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_output</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_matrix</span><span class="p">)</span>
         <span class="n">out_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_activation</span><span class="p">(</span><span class="n">out_input</span><span class="p">)</span>
+        <span class="n">intermediate_result</span> <span class="o">=</span> <span class="n">out_output</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="n">out_errors</span> <span class="o">=</span> <span class="p">(</span><span class="n">out_output</span> <span class="o">-</span> <span class="n">targets</span><span class="p">)</span> <span class="o">/</span> <span class="n">out_output</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">d_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_output</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">out_errors</span><span class="p">)</span>
@@ -14604,7 +14605,7 @@ a.anchor-link {
 
         <span class="n">log_eps</span> <span class="o">=</span> <span class="mf">1e-6</span>  <span class="c1"># to avoid np.log(0)</span>
         <span class="n">error</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">targets</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">out_output</span> <span class="o">+</span> <span class="n">log_eps</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">error</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">error</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">intermediate_result</span>
 
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="n">evaluate_inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -14624,17 +14625,24 @@ a.anchor-link {
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train on MNIST dataset (60000 samples)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">):</span>
     <span class="n">train_errors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">epoch_score</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_train_images</span><span class="p">)</span> <span class="o">//</span> <span class="n">BATCH_SIZE</span><span class="p">):</span>
         <span class="n">images</span> <span class="o">=</span> <span class="n">normalized_train_images</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">BATCH_SIZE</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">BATCH_SIZE</span><span class="p">]</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">train_labels</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">BATCH_SIZE</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">BATCH_SIZE</span><span class="p">]</span>
         <span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
             <span class="n">targets</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+        <span class="n">err</span><span class="p">,</span> <span class="n">iter_train_result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
         <span class="n">train_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">epoch_result</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">iter_train_result</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="n">epoch_result</span><span class="p">:</span>
+                <span class="n">epoch_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">epoch_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">train_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_errors</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">epoch_error</span> <span class="o">=</span> <span class="n">train_errors</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_errors</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{}</span><span class="s2">: error = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">epoch_error</span><span class="p">))</span>
+    <span class="n">epoch_acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">epoch_score</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch_score</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{}</span><span class="s2">: error = </span><span class="si">{}</span><span class="s2">, accuracy = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">epoch_error</span><span class="p">,</span> <span class="n">epoch_acc</span><span class="p">))</span>
 <span class="n">end_training_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Training time: </span><span class="si">{}</span><span class="s1"> seconds&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end_training_time</span> <span class="o">-</span> <span class="n">start_training_time</span><span class="p">))</span>
@@ -14678,30 +14686,30 @@ a.anchor-link {
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Train on MNIST dataset (60000 samples)
 
-Epoch 0: error = 0.24382465961149716
-Epoch 1: error = 0.11395140057338417
-Epoch 2: error = 0.08329490250691875
-Epoch 3: error = 0.06577452438363005
-Epoch 4: error = 0.05399733542337181
-Epoch 5: error = 0.04530051974388118
-Epoch 6: error = 0.03860238116849191
-Epoch 7: error = 0.033175711878301664
-Epoch 8: error = 0.028852905947698453
-Epoch 9: error = 0.02526228630789577
-Epoch 10: error = 0.02230642719626968
-Epoch 11: error = 0.019783928341650648
-Epoch 12: error = 0.0176446562908075
-Epoch 13: error = 0.0158499247700459
-Epoch 14: error = 0.014294431658880564
-Epoch 15: error = 0.01296878461702537
-Epoch 16: error = 0.011805503572240623
-Epoch 17: error = 0.010802039096835242
-Epoch 18: error = 0.009917628121411521
-Epoch 19: error = 0.009148557016620255
+Epoch 0: error = 0.24366946834243106, accuracy = 0.9294
+Epoch 1: error = 0.1111982706371235, accuracy = 0.9683833333333334
+Epoch 2: error = 0.08020954088516694, accuracy = 0.97775
+Epoch 3: error = 0.06256993306942726, accuracy = 0.9829666666666667
+Epoch 4: error = 0.050654026930661546, accuracy = 0.98675
+Epoch 5: error = 0.04203583751020802, accuracy = 0.9894833333333334
+Epoch 6: error = 0.035477742383309745, accuracy = 0.9918666666666667
+Epoch 7: error = 0.03029613955336112, accuracy = 0.9936166666666667
+Epoch 8: error = 0.026160701076425284, accuracy = 0.9947666666666667
+Epoch 9: error = 0.022802428935359262, accuracy = 0.9960833333333333
+Epoch 10: error = 0.020029405234500582, accuracy = 0.9970833333333333
+Epoch 11: error = 0.01774060124222088, accuracy = 0.9977
+Epoch 12: error = 0.015805409204277924, accuracy = 0.99825
+Epoch 13: error = 0.014159846902532587, accuracy = 0.9985333333333334
+Epoch 14: error = 0.012763127793099856, accuracy = 0.9989
+Epoch 15: error = 0.011566584450917362, accuracy = 0.9991333333333333
+Epoch 16: error = 0.010537670098906092, accuracy = 0.99935
+Epoch 17: error = 0.009660519040264562, accuracy = 0.9994333333333333
+Epoch 18: error = 0.008864240265562135, accuracy = 0.9995666666666667
+Epoch 19: error = 0.008194056051272455, accuracy = 0.9996666666666667
 
-Training time: 412.4132264 seconds
+Training time: 417.96783859999994 seconds
 
-accuracy on test dataset = 0.9805, test_error = 0.0678247060309584
+accuracy on test dataset = 0.9804, test_error = 0.06165979673194466
 </pre>
 </div>
 </div>
