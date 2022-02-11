@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>untitled10.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a71d5d;}
+.s1 { color: #333333;}
+.s2 { color: #63a35c;}
+.s3 { color: #008080; font-weight: bold;}
+.s4 { color: #969896;}
+.s5 { color: #0086b3;}
+.s6 { color: #183691;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+untitled10.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">numpy </span><span class="s0">as </span><span class="s1">np</span>
+<span class="s0">import </span><span class="s1">time</span>
+
+
+<span class="s0">class </span><span class="s1">NeuralNetwork</span><span class="s2">(</span><span class="s1">object</span><span class="s2">)</span><span class="s0">:</span>
+
+    <span class="s0">def </span><span class="s1">__init__</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">inputs</span><span class="s2">, </span><span class="s1">hidden</span><span class="s2">, </span><span class="s1">outputs</span><span class="s2">, </span><span class="s1">activation</span><span class="s0">=</span><span class="s3">'relu'</span><span class="s2">, </span><span class="s1">output_act</span><span class="s0">=</span><span class="s3">'softmax'</span><span class="s2">)</span><span class="s0">:</span>
+
+        <span class="s4"># Hidden layer activation function</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">activation </span><span class="s0">= </span><span class="s1">relu</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">activation_prime </span><span class="s0">= </span><span class="s1">relu</span>
+
+        <span class="s4"># Output layer activation function</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">output_act </span><span class="s0">= </span><span class="s1">softmax</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">output_act_prime </span><span class="s0">= </span><span class="s1">softmax_prime</span>
+
+        <span class="s4"># Weights initializarion</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">wi </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">random</span><span class="s2">.</span><span class="s1">randn</span><span class="s2">(</span><span class="s1">inputs</span><span class="s2">, </span><span class="s1">hidden</span><span class="s2">) </span><span class="s0">/ </span><span class="s1">np</span><span class="s2">.</span><span class="s1">sqrt</span><span class="s2">(</span><span class="s1">inputs</span><span class="s2">)</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">wo </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">random</span><span class="s2">.</span><span class="s1">randn</span><span class="s2">(</span><span class="s1">hidden </span><span class="s0">+ </span><span class="s5">1</span><span class="s2">, </span><span class="s1">outputs</span><span class="s2">) </span><span class="s0">/ </span><span class="s1">np</span><span class="s2">.</span><span class="s1">sqrt</span><span class="s2">(</span><span class="s1">hidden</span><span class="s2">)</span>
+
+        <span class="s4"># Weights updates initialization</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">updatei </span><span class="s0">= </span><span class="s5">0</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">updateo </span><span class="s0">= </span><span class="s5">0</span>
+
+    <span class="s0">def </span><span class="s1">feedforward</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">X</span><span class="s2">)</span><span class="s0">:</span>
+
+        <span class="s4"># Hidden layer activation</span>
+        <span class="s1">ah </span><span class="s0">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">activation</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">dot</span><span class="s2">(</span><span class="s1">X</span><span class="s2">, </span><span class="s1">self</span><span class="s2">.</span><span class="s1">wi</span><span class="s2">))</span>
+
+        <span class="s4"># Adding bias to the hidden layer results</span>
+        <span class="s1">ah </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">concatenate</span><span class="s2">((</span><span class="s1">np</span><span class="s2">.</span><span class="s1">ones</span><span class="s2">(</span><span class="s5">1</span><span class="s2">).</span><span class="s1">T</span><span class="s2">, </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">(</span><span class="s1">ah</span><span class="s2">)))</span>
+
+        <span class="s4"># Outputs</span>
+        <span class="s1">y </span><span class="s0">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">output_act</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">dot</span><span class="s2">(</span><span class="s1">ah</span><span class="s2">, </span><span class="s1">self</span><span class="s2">.</span><span class="s1">wo</span><span class="s2">))</span>
+
+        <span class="s4"># Return the results</span>
+        <span class="s0">return </span><span class="s1">y</span>
+
+    <span class="s0">def </span><span class="s1">fit</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">X</span><span class="s2">, </span><span class="s1">y</span><span class="s2">, </span><span class="s1">epochs</span><span class="s0">=</span><span class="s5">10</span><span class="s2">, </span><span class="s1">learning_rate</span><span class="s0">=</span><span class="s5">0.2</span><span class="s2">, </span><span class="s1">learning_rate_decay</span><span class="s0">=</span><span class="s5">0</span><span class="s2">, </span><span class="s1">momentum</span><span class="s0">=</span><span class="s5">0</span><span class="s2">, </span><span class="s1">verbose</span><span class="s0">=</span><span class="s5">0</span><span class="s2">)</span><span class="s0">:</span>
+
+        <span class="s4"># Timer start</span>
+        <span class="s1">startTime </span><span class="s0">= </span><span class="s1">time</span><span class="s2">.</span><span class="s1">time</span><span class="s2">()</span>
+
+        <span class="s4"># Epochs loop</span>
+        <span class="s0">for </span><span class="s1">k </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">epochs</span><span class="s2">)</span><span class="s0">:</span>
+
+            <span class="s4"># Dataset loop</span>
+            <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">X</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">[</span><span class="s5">0</span><span class="s2">])</span><span class="s0">:</span>
+                <span class="s4"># Hidden layer activation</span>
+                <span class="s1">ah </span><span class="s0">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">activation</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">dot</span><span class="s2">(</span><span class="s1">X</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">self</span><span class="s2">.</span><span class="s1">wi</span><span class="s2">))</span>
+
+                <span class="s4"># Adding bias to the hidden layer</span>
+                <span class="s1">ah </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">concatenate</span><span class="s2">((</span><span class="s1">np</span><span class="s2">.</span><span class="s1">ones</span><span class="s2">(</span><span class="s5">1</span><span class="s2">).</span><span class="s1">T</span><span class="s2">, </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">(</span><span class="s1">ah</span><span class="s2">)))</span>
+
+                <span class="s4"># Output activation</span>
+                <span class="s1">ao </span><span class="s0">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">output_act</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">dot</span><span class="s2">(</span><span class="s1">ah</span><span class="s2">, </span><span class="s1">self</span><span class="s2">.</span><span class="s1">wo</span><span class="s2">))</span>
+
+                <span class="s4"># Deltas</span>
+                <span class="s1">deltao </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">multiply</span><span class="s2">(</span><span class="s1">self</span><span class="s2">.</span><span class="s1">output_act_prime</span><span class="s2">(</span><span class="s1">ao</span><span class="s2">), </span><span class="s1">y</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] </span><span class="s0">- </span><span class="s1">ao</span><span class="s2">)</span>
+                <span class="s1">deltai </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">multiply</span><span class="s2">(</span><span class="s1">self</span><span class="s2">.</span><span class="s1">activation_prime</span><span class="s2">(</span><span class="s1">ah</span><span class="s2">), </span><span class="s1">np</span><span class="s2">.</span><span class="s1">dot</span><span class="s2">(</span><span class="s1">self</span><span class="s2">.</span><span class="s1">wo</span><span class="s2">, </span><span class="s1">deltao</span><span class="s2">))</span>
+
+                <span class="s4"># Weights update with momentum</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">updateo </span><span class="s0">= </span><span class="s1">momentum </span><span class="s0">* </span><span class="s1">self</span><span class="s2">.</span><span class="s1">updateo </span><span class="s0">+ </span><span class="s1">np</span><span class="s2">.</span><span class="s1">multiply</span><span class="s2">(</span><span class="s1">learning_rate</span><span class="s2">, </span><span class="s1">np</span><span class="s2">.</span><span class="s1">outer</span><span class="s2">(</span><span class="s1">ah</span><span class="s2">, </span><span class="s1">deltao</span><span class="s2">))</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">updatei </span><span class="s0">= </span><span class="s1">momentum </span><span class="s0">* </span><span class="s1">self</span><span class="s2">.</span><span class="s1">updatei </span><span class="s0">+ </span><span class="s1">np</span><span class="s2">.</span><span class="s1">multiply</span><span class="s2">(</span><span class="s1">learning_rate</span><span class="s2">, </span><span class="s1">np</span><span class="s2">.</span><span class="s1">outer</span><span class="s2">(</span><span class="s1">X</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">deltai</span><span class="s2">[</span><span class="s5">1</span><span class="s0">:</span><span class="s2">]))</span>
+
+                <span class="s4"># Weights update</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">wo </span><span class="s0">+= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">updateo</span>
+                <span class="s1">self</span><span class="s2">.</span><span class="s1">wi </span><span class="s0">+= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">updatei</span>
+
+            <span class="s4"># Print training status</span>
+            <span class="s0">if </span><span class="s1">verbose </span><span class="s0">== </span><span class="s5">1</span><span class="s0">:</span>
+                <span class="s1">print</span><span class="s2">(</span><span class="s3">'EPOCH: {0:4d}/{1:4d}</span><span class="s6">\t\t</span><span class="s3">Learning rate: {2:4f}</span><span class="s6">\t\t</span><span class="s3">Elapse time [seconds]: {3:5f}'</span><span class="s2">.</span><span class="s1">format</span><span class="s2">(</span><span class="s1">k</span><span class="s2">, </span><span class="s1">epochs</span><span class="s2">,</span>
+                                                                                                              <span class="s1">learning_rate</span><span class="s2">,</span>
+                                                                                                              <span class="s1">time</span><span class="s2">.</span><span class="s1">time</span><span class="s2">() </span><span class="s0">- </span><span class="s1">startTime</span><span class="s2">))</span>
+
+            <span class="s4"># Learning rate update</span>
+            <span class="s1">learning_rate </span><span class="s0">= </span><span class="s1">learning_rate </span><span class="s0">* </span><span class="s2">(</span><span class="s5">1 </span><span class="s0">- </span><span class="s1">learning_rate_decay</span><span class="s2">)</span>
+
+    <span class="s0">def </span><span class="s1">predict</span><span class="s2">(</span><span class="s1">self</span><span class="s2">, </span><span class="s1">X</span><span class="s2">)</span><span class="s0">:</span>
+
+        <span class="s4"># Allocate memory for the outputs</span>
+        <span class="s1">y </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">zeros</span><span class="s2">([</span><span class="s1">X</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">[</span><span class="s5">0</span><span class="s2">], </span><span class="s1">self</span><span class="s2">.</span><span class="s1">wo</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">[</span><span class="s5">1</span><span class="s2">]])</span>
+
+        <span class="s4"># Loop the inputs</span>
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">X</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">[</span><span class="s5">0</span><span class="s2">])</span><span class="s0">:</span>
+            <span class="s1">y</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] </span><span class="s0">= </span><span class="s1">self</span><span class="s2">.</span><span class="s1">feedforward</span><span class="s2">(</span><span class="s1">X</span><span class="s2">[</span><span class="s1">i</span><span class="s2">])</span>
+
+        <span class="s4"># Return the results</span>
+        <span class="s0">return </span><span class="s1">y</span>
+
+
+<span class="s4"># Activation functions</span>
+<span class="s0">def </span><span class="s1">softmax</span><span class="s2">(</span><span class="s1">x</span><span class="s2">)</span><span class="s0">:</span>
+    <span class="s0">return </span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">exp</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">(</span><span class="s1">x</span><span class="s2">)) </span><span class="s0">/ </span><span class="s1">np</span><span class="s2">.</span><span class="s1">sum</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">exp</span><span class="s2">(</span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">(</span><span class="s1">x</span><span class="s2">))))</span>
+
+
+<span class="s0">def </span><span class="s1">softmax_prime</span><span class="s2">(</span><span class="s1">x</span><span class="s2">)</span><span class="s0">:</span>
+    <span class="s0">return </span><span class="s1">softmax</span><span class="s2">(</span><span class="s1">x</span><span class="s2">) </span><span class="s0">* </span><span class="s2">(</span><span class="s5">1.0 </span><span class="s0">- </span><span class="s1">softmax</span><span class="s2">(</span><span class="s1">x</span><span class="s2">))</span>
+
+
+<span class="s0">def </span><span class="s1">relu</span><span class="s2">(</span><span class="s1">x</span><span class="s2">)</span><span class="s0">:</span>
+    <span class="s0">return </span><span class="s1">np</span><span class="s2">.</span><span class="s1">maximum</span><span class="s2">(</span><span class="s1">x</span><span class="s2">, </span><span class="s5">0</span><span class="s2">)</span>
+
+<span class="s0">from </span><span class="s1">sklearn </span><span class="s0">import </span><span class="s1">datasets</span>
+<span class="s0">from </span><span class="s1">sklearn </span><span class="s0">import </span><span class="s1">preprocessing</span>
+<span class="s0">from </span><span class="s1">sklearn </span><span class="s0">import </span><span class="s1">model_selection</span>
+<span class="s0">from </span><span class="s1">sklearn </span><span class="s0">import </span><span class="s1">metrics</span>
+
+
+<span class="s0">def </span><span class="s1">targetToVector</span><span class="s2">(</span><span class="s1">x</span><span class="s2">)</span><span class="s0">:</span>
+    <span class="s4"># Vector</span>
+    <span class="s1">a </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">zeros</span><span class="s2">([</span><span class="s1">len</span><span class="s2">(</span><span class="s1">x</span><span class="s2">), </span><span class="s5">10</span><span class="s2">])</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">len</span><span class="s2">(</span><span class="s1">x</span><span class="s2">))</span><span class="s0">:</span>
+        <span class="s1">a</span><span class="s2">[</span><span class="s1">i</span><span class="s2">, </span><span class="s1">x</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]] </span><span class="s0">= </span><span class="s5">1</span>
+    <span class="s0">return </span><span class="s1">a</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ </span><span class="s0">== </span><span class="s3">'__main__'</span><span class="s0">:</span>
+    <span class="s4"># Digits dataset loading</span>
+    <span class="s1">digits </span><span class="s0">= </span><span class="s1">datasets</span><span class="s2">.</span><span class="s1">load_digits</span><span class="s2">()</span>
+    <span class="s1">X </span><span class="s0">= </span><span class="s1">preprocessing</span><span class="s2">.</span><span class="s1">scale</span><span class="s2">(</span><span class="s1">digits</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">astype</span><span class="s2">(</span><span class="s1">float</span><span class="s2">))</span>
+    <span class="s1">y </span><span class="s0">= </span><span class="s1">targetToVector</span><span class="s2">(</span><span class="s1">digits</span><span class="s2">.</span><span class="s1">target</span><span class="s2">)</span>
+
+    <span class="s4"># Cross valitation</span>
+    <span class="s1">X_train</span><span class="s2">, </span><span class="s1">X_test</span><span class="s2">, </span><span class="s1">y_train</span><span class="s2">, </span><span class="s1">y_test </span><span class="s0">= </span><span class="s1">model_selection</span><span class="s2">.</span><span class="s1">train_test_split</span><span class="s2">(</span><span class="s1">X</span><span class="s2">, </span><span class="s1">y</span><span class="s2">, </span><span class="s1">test_size</span><span class="s0">=</span><span class="s5">0.2</span><span class="s2">, </span><span class="s1">random_state</span><span class="s0">=</span><span class="s5">0</span><span class="s2">)</span>
+
+    <span class="s4"># Neural Network initialization</span>
+    <span class="s1">NN </span><span class="s0">= </span><span class="s1">NeuralNetwork</span><span class="s2">(</span><span class="s5">64</span><span class="s2">, </span><span class="s5">300</span><span class="s2">, </span><span class="s5">10</span><span class="s2">, </span><span class="s1">activation</span><span class="s0">=</span><span class="s3">'relu'</span><span class="s2">, </span><span class="s1">output_act</span><span class="s0">=</span><span class="s3">'softmax'</span><span class="s2">)</span>
+    <span class="s1">NN</span><span class="s2">.</span><span class="s1">fit</span><span class="s2">(</span><span class="s1">X_train</span><span class="s2">, </span><span class="s1">y_train</span><span class="s2">, </span><span class="s1">epochs</span><span class="s0">=</span><span class="s5">20</span><span class="s2">, </span><span class="s1">learning_rate</span><span class="s0">=</span><span class="s5">.1</span><span class="s2">, </span><span class="s1">learning_rate_decay</span><span class="s0">=</span><span class="s5">.01</span><span class="s2">, </span><span class="s1">verbose</span><span class="s0">=</span><span class="s5">1</span><span class="s2">)</span>
+
+    <span class="s4"># NN predictions</span>
+    <span class="s1">y_predicted </span><span class="s0">= </span><span class="s1">NN</span><span class="s2">.</span><span class="s1">predict</span><span class="s2">(</span><span class="s1">X_test</span><span class="s2">)</span>
+
+    <span class="s4"># Metrics</span>
+    <span class="s1">y_predicted </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">argmax</span><span class="s2">(</span><span class="s1">y_predicted</span><span class="s2">, </span><span class="s1">axis</span><span class="s0">=</span><span class="s5">1</span><span class="s2">).</span><span class="s1">astype</span><span class="s2">(</span><span class="s1">int</span><span class="s2">)</span>
+    <span class="s1">y_test </span><span class="s0">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">argmax</span><span class="s2">(</span><span class="s1">y_test</span><span class="s2">, </span><span class="s1">axis</span><span class="s0">=</span><span class="s5">1</span><span class="s2">).</span><span class="s1">astype</span><span class="s2">(</span><span class="s1">int</span><span class="s2">)</span>
+
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s6">\n</span><span class="s3">Classification report for classifier:</span><span class="s6">\n\n</span><span class="s3">%s</span><span class="s6">\n</span><span class="s3">&quot;</span>
+<span class="s4">#           % (metrics.classification_report(y_test, y_predicted)))</span>
+    <span class="s4">#print(&quot;Confusion matrix:\n\n%s&quot; % metrics.confusion_matrix(y_test, y_predicted))</span></pre>
+</body>
+</html>
