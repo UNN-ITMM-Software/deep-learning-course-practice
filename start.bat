@@ -1,1 +1,0 @@
-jupyter notebook --notebook-dir=F:\UserData\Projects\deep-learning-course-practice
