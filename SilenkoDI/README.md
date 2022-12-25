@@ -1,2 +1,3 @@
-| ФИО                      | Hidden neurons | Learning rate | Number of epochs | Time, s | Train accuracy | Test accuracy |
-|Силенко Дмитрий Игоревич  |     300        |      0.1      |        20        |   178   |     0.9996     |    0.9817     |
+|           ФИО            | Hidden neurons | Learning rate | Number of epochs | Time, s | Train accuracy | Test accuracy |
+|:------------------------:|:--------------:|:-------------:|:----------------:|:-------:|:--------------:|:-------------:|
+|Силенко Дмитрий Игоревич  |      300       |      0.1      |        20        |   178   |     0.9996     |    0.9817     |
